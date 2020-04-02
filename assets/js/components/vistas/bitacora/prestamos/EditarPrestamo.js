@@ -3,15 +3,11 @@ import {
   Paper,
   Divider,
   Grid,
-  Breadcrumbs,
-  Link,
   IconButton,
   Collapse,
-  Typography,
   TextField,
   Button
 } from "@material-ui/core";
-import HomeIcon from "@material-ui/icons/Home";
 import { Alert, Autocomplete } from "@material-ui/lab";
 import { Close as CloseIcon } from "@material-ui/icons";
 import { v4 as uuidv4 } from "uuid";
@@ -149,18 +145,6 @@ const EditarPrestamo = ({ crearPrestamo }) => {
 
   return (
     <Paper style={style.paper}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={12}>
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link color="inherit" style={style.link} href="/prestamos">
-              <HomeIcon style={style.homeIcon} />
-              Préstamos
-            </Link>
-            <Typography color="textPrimary">Editar Préstamo</Typography>
-          </Breadcrumbs>
-        </Grid>
-      </Grid>
-
       <Collapse in={error} style={style.error}>
         <Alert
           variant="filled"

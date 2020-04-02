@@ -58,16 +58,8 @@ const style = {
   }
 };
 
-function createData(
-  estudiante,
-  programa,
-  documento,
-  email,
-  telefono,
-  estado,
-  opciones
-) {
-  return { estudiante, programa, documento, email, telefono, estado, opciones };
+function createData(estudiante, programa, documento, estado, opciones) {
+  return { estudiante, programa, documento, estado, opciones };
 }
 
 const rows = [
@@ -143,8 +135,6 @@ function searchingFor(term) {
       x.estudiante.toLowerCase().includes(term.toLowerCase()) ||
       x.programa.toLowerCase().includes(term.toLowerCase()) ||
       x.documento.toLowerCase().includes(term.toLowerCase()) ||
-      x.email.toLowerCase().includes(term.toLowerCase()) ||
-      x.telefono.toLowerCase().includes(term.toLowerCase()) ||
       x.estado.toLowerCase().includes(term.toLowerCase()) ||
       !term
     );
@@ -224,8 +214,6 @@ export default class Estudiantes extends Component {
                   <TableCell align="center">Estudiante</TableCell>
                   <TableCell align="center">Programa</TableCell>
                   <TableCell align="center">Documento</TableCell>
-                  <TableCell align="center">Email</TableCell>
-                  <TableCell align="center">Teléfono</TableCell>
                   <TableCell align="center">Estado</TableCell>
                   <TableCell align="center">Opciones</TableCell>
                 </TableRow>
@@ -238,8 +226,6 @@ export default class Estudiantes extends Component {
                     </TableCell>
                     <TableCell align="center">{person.programa}</TableCell>
                     <TableCell align="center">{person.documento}</TableCell>
-                    <TableCell align="center">{person.email}</TableCell>
-                    <TableCell align="center">{person.telefono}</TableCell>
                     <TableCell align="center">{person.estado}</TableCell>
                     <TableCell align="center">
                       <IconButton>

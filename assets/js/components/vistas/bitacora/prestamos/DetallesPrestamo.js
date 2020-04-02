@@ -3,14 +3,10 @@ import {
   Container,
   Paper,
   Grid,
-  Breadcrumbs,
-  Link,
   IconButton,
   Collapse,
-  Typography,
   TextField
 } from "@material-ui/core";
-import HomeIcon from "@material-ui/icons/Home";
 import { Alert } from "@material-ui/lab";
 import { Close as CloseIcon } from "@material-ui/icons";
 //import fotoUsuarioTemp from "../../../../logo.svg";
@@ -120,18 +116,6 @@ const DetallesPrestamo = props => {
         justify="center"
       >
         <Paper style={style.paper}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={12}>
-              <Breadcrumbs aria-label="breadcrumb">
-                <Link color="inherit" style={style.link} href="/prestamos">
-                  <HomeIcon style={style.homeIcon} />
-                  Préstamos
-                </Link>
-                <Typography color="textPrimary">Detalles Préstamo</Typography>
-              </Breadcrumbs>
-            </Grid>
-          </Grid>
-
           <Collapse in={error} style={style.error}>
             <Alert
               variant="filled"

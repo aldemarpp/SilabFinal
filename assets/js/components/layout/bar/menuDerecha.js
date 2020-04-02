@@ -75,7 +75,7 @@ export const MenuDerecha = ({ classes, textoUsuario, fotoUsuario }) => (
           primary="Trabajos"
         />
       </ListItem>
-      <ListItem component={Link} button to="/">
+      <ListItem component={Link} button to="/mensajes">
         <Icon path={mdiMessageBulleted} size={1} color="red" />
         <ListItemText
           classes={{ primary: classes.listItemText }}

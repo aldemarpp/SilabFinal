@@ -13,10 +13,6 @@ import Usuarios from "./components/seguridad/usuarios/Usuarios";
 import Usuario from "./components/seguridad/usuarios/Usuario";
 import DetallesUsuario from "./components/seguridad/usuarios/DetallesUsuario";
 import UsuarioEditar from "./components/seguridad/usuarios/UsuarioEditar";
-import Prestamos from "./components/vistas/bitacora/prestamos/Prestamos";
-import Prestamo from "./components/vistas/bitacora/prestamos/Prestamo";
-import DetallesPrestamo from "./components/vistas/bitacora/prestamos/DetallesPrestamo";
-import PrestamoEditar from "./components/vistas/bitacora/prestamos/PrestamoEditar";
 import Laboratorios from "./components/vistas/almacen/laboratorios/Laboratorios";
 import Laboratorio from "./components/vistas/almacen/laboratorios/Laboratorio";
 import DetallesLaboratorio from "./components/vistas/almacen/laboratorios/DetallesLaboratorio";
@@ -36,12 +32,24 @@ import NuevoTrabajo from "./components/vistas/bitacora/trabajos/NuevoTrabajo";
 //import AutoCompleteText from "./AutoCompleteText";
 //import Search from "../src/Search";
 //import "../src/Search/style.css";
+//import PersonList from "./components/PersonList";
+//import PersonInput from "./components/PersonInput";
+import TabPanel from "./components/vistas/bitacora/prestamos/TabPanel";
+import TodoContextProvider from "./components/contexts/TodoContext";
+import TodoTable from "./components/contexts/TodoTable";
+import { CssBaseline } from "@material-ui/core";
 
 function App(props) {
   return (
     <Router>
       <MuiThemeProvider theme={theme}>
         <AppNavBar />
+
+        <TodoContextProvider>
+          <CssBaseline>
+            <TodoTable />
+          </CssBaseline>
+        </TodoContextProvider>
 
         <Grid container>
           <Switch>
@@ -57,18 +65,8 @@ function App(props) {
               component={EditarElemento}
             ></Route>
 
-            <Route path="/prestamos" exact component={Prestamos}></Route>
-            <Route path="/prestamo/nuevo" exact component={Prestamo}></Route>
-            <Route
-              path="/prestamo/detalles"
-              exact
-              component={DetallesPrestamo}
-            ></Route>
-            <Route
-              path="/prestamo/editar"
-              exact
-              component={PrestamoEditar}
-            ></Route>
+            <Route path="/Prestamos" exact component={TabPanel}></Route>
+
             <Route path="/auth/login" exact component={Login}></Route>
             <Route path="/auth/perfil" exact component={PerfilUsuario}></Route>
             <Route path="/usuarios" exact component={Usuarios}></Route>

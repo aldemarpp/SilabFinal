@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -7,26 +7,16 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
 import {
-  Container,
   Paper,
-  Grid,
   TextField,
-  Breadcrumbs,
   Link,
-  Typography,
   IconButton,
-  Divider,
   InputAdornment
 } from "@material-ui/core";
 import Icon from "@mdi/react";
-import { mdiEye, mdiCardSearch } from "@mdi/js";
-import HomeIcon from "@material-ui/icons/Home";
+import { mdiEye, mdiCardSearch, mdiCircleEditOutline } from "@mdi/js";
 
 const style = {
-  table: {
-    minWidth: 650,
-    paddingTop: "40px"
-  },
   container: {
     paddingTop: "20px"
   },
@@ -35,8 +25,15 @@ const style = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "20px",
+    padding: "10px",
     backgroundColor: "#f5f5f5"
+  },
+  table: {
+    minWidth: 650,
+    paddingTop: "40px"
+  },
+  div: {
+    paddingTop: "20px"
   },
   link: {
     display: "flex"
@@ -54,7 +51,7 @@ const style = {
   },
   search: {
     width: 400,
-    marginBottom: 20
+    marginBottom: 10
   }
 };
 
@@ -87,12 +84,14 @@ function searchingFor(term) {
 export default class Prestamos extends Component {
   constructor(props) {
     super(props);
+    this.onChangeIndex = props.onChangeIndex;
     this.state = {
       rows: rows,
       term: ""
     };
     this.searchHandler = this.searchHandler.bind(this);
   }
+
   searchHandler(event) {
     this.setState({ term: event.target.value });
   }
@@ -101,85 +100,80 @@ export default class Prestamos extends Component {
     const { term, rows } = this.state;
 
     return (
-      <Container
-        style={style.container}
-        component="main"
-        maxWidth="lg"
-        justify="center"
-      >
-        <Paper style={style.paper}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={12}>
-              <Breadcrumbs aria-label="breadcrumb">
-                <Link color="inherit" style={style.link} href="">
-                  <HomeIcon style={style.homeIcon} />
-                  Préstamos
-                </Link>
-                <Link color="inherit" style={style.link} href="/prestamo/nuevo">
-                  <Typography color="textPrimary">Nuevo Préstamo</Typography>
-                </Link>
-              </Breadcrumbs>
-            </Grid>
-            <Grid item md={12} xs={12}>
-              <Divider style={style.divider} />
-            </Grid>
-          </Grid>
+      <Fragment>
+        <div className="App" style={style.div}>
+          <form>
+            <TextField
+              fullWidth
+              placeholder="Buscar..."
+              onChange={this.searchHandler}
+              value={term}
+              style={style.search}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Icon path={mdiCardSearch} size={1.5} color="red" />
+                  </InputAdornment>
+                )
+              }}
+            />
+          </form>
+        </div>
 
-          <div className="App">
-            <form>
-              <TextField
-                fullWidth
-                placeholder="Buscar..."
-                onChange={this.searchHandler}
-                value={term}
-                style={style.search}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Icon path={mdiCardSearch} size={1.5} color="red" />
-                    </InputAdornment>
-                  )
-                }}
-              />
-            </form>
-          </div>
-
-          <TableContainer component={Paper} style={style.space}>
-            <Table style={style.table} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="center">Estudiante</TableCell>
-                  <TableCell align="center">Asignatura-Programa</TableCell>
-                  <TableCell align="center">Registrado Por</TableCell>
-                  <TableCell align="center">Estado</TableCell>
-                  <TableCell align="center">N° de Préstamos</TableCell>
-                  <TableCell align="center">Opciones</TableCell>
+        <TableContainer component={Paper} style={style.space}>
+          <Table style={style.table} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Estudiante</TableCell>
+                <TableCell align="center">Asignatura-Programa</TableCell>
+                <TableCell align="center">Registrado Por</TableCell>
+                <TableCell align="center">Estado</TableCell>
+                <TableCell align="center">N° de Préstamos</TableCell>
+                <TableCell align="center">Opciones</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.filter(searchingFor(term)).map(person => (
+                <TableRow key={person.estudiante}>
+                  <TableCell component="th" scope="row" align="left">
+                    {person.estudiante}
+                  </TableCell>
+                  <TableCell align="center">{person.stock}</TableCell>
+                  <TableCell align="center">{person.horas_uso}</TableCell>
+                  <TableCell align="center">{person.estado}</TableCell>
+                  <TableCell align="center">{person.stock}</TableCell>
+                  <TableCell align="center">
+                    <IconButton>
+                      <Link style={style.link}>
+                        <Icon
+                          path={mdiEye}
+                          size={1}
+                          color="red"
+                          onClick={e => {
+                            this.onChangeIndex(2, e);
+                          }}
+                        />
+                      </Link>
+                    </IconButton>
+                    <IconButton>
+                      <Link style={style.link}>
+                        <Icon
+                          path={mdiCircleEditOutline}
+                          size={1}
+                          color="red"
+                          onClick={e => {
+                            this.onChangeIndex(3, e);
+                          }}
+                        />
+                      </Link>
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.filter(searchingFor(term)).map(person => (
-                  <TableRow key={person.estudiante}>
-                    <TableCell component="th" scope="row" align="left">
-                      {person.estudiante}
-                    </TableCell>
-                    <TableCell align="center">{person.stock}</TableCell>
-                    <TableCell align="center">{person.horas_uso}</TableCell>
-                    <TableCell align="center">{person.estado}</TableCell>
-                    <TableCell align="center">{person.stock}</TableCell>
-                    <TableCell align="center">
-                      <IconButton>
-                        <Link style={style.link} href="/prestamo/detalles">
-                          <Icon path={mdiEye} size={1} color="red" />
-                        </Link>
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Paper>
-      </Container>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Fragment>
     );
   }
 }
