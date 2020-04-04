@@ -9,7 +9,7 @@ import {
   Collapse,
   Typography,
   TextField,
-  Button
+  Button,
 } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
 import { Alert, Autocomplete } from "@material-ui/lab";
@@ -20,7 +20,7 @@ import { Close as CloseIcon } from "@material-ui/icons";
 
 const style = {
   container: {
-    paddingTop: "20px"
+    paddingTop: "20px",
   },
   paper: {
     marginTop: 8,
@@ -28,31 +28,31 @@ const style = {
     flexDirection: "column",
     alignItems: "center",
     padding: "20px",
-    backgroundColor: "#f5f5f5"
+    backgroundColor: "#f5f5f5",
   },
   link: {
-    display: "flex"
+    display: "flex",
   },
   homeIcon: {
     width: 20,
     height: 20,
-    marginRight: "4px"
+    marginRight: "4px",
   },
   form: {
-    width: "100%"
+    width: "100%",
   },
   submit: {
     marginTop: 30,
-    marginBottom: 20
+    marginBottom: 20,
   },
   avatar: {
     margin: 25,
-    backgroundColor: "#e53935"
+    backgroundColor: "#e53935",
   },
   error: {
     marginTop: 20,
-    marginBottom: 20
-  }
+    marginBottom: 20,
+  },
 };
 
 const NuevoTrabajo = () => {
@@ -60,18 +60,18 @@ const NuevoTrabajo = () => {
   const [perfil, cambiarPerfil] = useState({
     estudiante: "",
     descripcion: "",
-    registro: ""
+    registro: "",
   });
 
   //crear state de error
   const [error, actualizarError] = useState(false);
 
   //funcion para cuando el usuario escribe en los inputs
-  const cambiarDato = e => {
+  const cambiarDato = (e) => {
     const { name, value } = e.target;
-    cambiarPerfil(prev => ({
+    cambiarPerfil((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -79,7 +79,7 @@ const NuevoTrabajo = () => {
   const { estudiante, descripcion, registro } = perfil;
 
   //funcion para cuando el usuario envia la informacion
-  const submitPerfil = e => {
+  const submitPerfil = (e) => {
     e.preventDefault();
     if (estudiante === "" || descripcion === "" || registro === "") {
       actualizarError(true);
@@ -95,13 +95,13 @@ const NuevoTrabajo = () => {
     cambiarPerfil({
       estudiante: "",
       descripcion: "",
-      registro: ""
+      registro: "",
     });
   };
 
   const element = [
     { state: "191158 - Aldemar" },
-    { state: "191161 - Armando" }
+    { state: "191161 - Armando" },
   ];
 
   return (
@@ -158,13 +158,13 @@ const NuevoTrabajo = () => {
                   } else {
                     valor = "";
                   }
-                  cambiarPerfil(prev => ({
+                  cambiarPerfil((prev) => ({
                     ...prev,
-                    estudiante: valor
+                    estudiante: valor,
                   }));
                 }}
-                getOptionLabel={option => option.state}
-                renderInput={params => (
+                getOptionLabel={(option) => option.state}
+                renderInput={(params) => (
                   <TextField {...params} label="Seleccione un estudiante" />
                 )}
               />

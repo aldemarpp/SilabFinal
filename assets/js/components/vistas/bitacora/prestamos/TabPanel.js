@@ -31,31 +31,31 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   },
   container: {
-    paddingTop: "20px"
+    paddingTop: "20px",
   },
   paper: {
     marginTop: 8,
     display: "flex",
     alignItems: "center",
     padding: "20px",
-    backgroundColor: "#f5f5f5"
-  }
+    backgroundColor: "#f5f5f5",
+  },
 }));
 
 export default function SimpleTabs(onChangeTab) {
@@ -67,7 +67,7 @@ export default function SimpleTabs(onChangeTab) {
     setValue(newValue);
   };
 
-  const onChangeIndex = index => {
+  const onChangeIndex = (index) => {
     setValue(index);
   };
 

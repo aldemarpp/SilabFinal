@@ -25,8 +25,9 @@ import Elementos from "./components/vistas/almacen/elementos/Elementos";
 import Mantenimientos from "./components/vistas/bitacora/mantenimientos/Mantenimientos";
 import NuevoMantenimiento from "./components/vistas/bitacora/mantenimientos/NuevoMantenimiento";
 //import EditarMantenimiento from "./components/vistas/bitacora/mantenimientos/EditarMantenimiento";
-import Trabajos from "./components/vistas/bitacora/trabajos/Trabajos";
+//import Trabajos from "./components/vistas/bitacora/trabajos/Trabajos";
 import NuevoTrabajo from "./components/vistas/bitacora/trabajos/NuevoTrabajo";
+import Trabajo from "./components/vistas/bitacora/trabajos/Trabajo";
 //import EditarTrabajo from "./components/vistas/bitacora/trabajos/EditarTrabajo";
 //import countries from "./countries";
 //import AutoCompleteText from "./AutoCompleteText";
@@ -35,25 +36,17 @@ import NuevoTrabajo from "./components/vistas/bitacora/trabajos/NuevoTrabajo";
 //import PersonList from "./components/PersonList";
 //import PersonInput from "./components/PersonInput";
 import TabPanel from "./components/vistas/bitacora/prestamos/TabPanel";
-import TodoContextProvider from "./components/contexts/TodoContext";
-import TodoTable from "./components/contexts/TodoTable";
-import { CssBaseline } from "@material-ui/core";
+import Contexts from "./components/contexts/Contexts";
 
 function App(props) {
   return (
     <Router>
       <MuiThemeProvider theme={theme}>
         <AppNavBar />
-
-        <TodoContextProvider>
-          <CssBaseline>
-            <TodoTable />
-          </CssBaseline>
-        </TodoContextProvider>
-
         <Grid container>
           <Switch>
             <Route path="/elementos" exact component={Elementos}></Route>
+            <Route path="/mensajes" exact component={Contexts}></Route>
             <Route
               path="/elemento/nuevo"
               exact
@@ -114,7 +107,7 @@ function App(props) {
               component={NuevoMantenimiento}
             ></Route>
 
-            <Route path="/trabajos" exact component={Trabajos}></Route>
+            <Route path="/trabajos" exact component={Trabajo}></Route>
             <Route path="/trabajo/nuevo" exact component={NuevoTrabajo}></Route>
           </Switch>
         </Grid>
