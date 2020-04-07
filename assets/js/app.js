@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme/theme";
 import Grid from "@material-ui/core/Grid";
-import Estudiantes from "./components/seguridad/personas/estudiantes/Estudiantes";
+import Estudiante from "./components/seguridad/personas/estudiantes/Estudiante";
 import UpdateEstudiante from "./components/seguridad/personas/estudiantes/UpdateEstudiante";
 import PerfilUsuario from "./components/seguridad/usuarios/PerfilUsuario";
 import Usuarios from "./components/seguridad/usuarios/Usuarios";
@@ -74,7 +74,7 @@ function App(props) {
               exact
               component={UsuarioEditar}
             ></Route>
-            <Route path="/estudiantes" exact component={Estudiantes}></Route>
+            <Route path="/estudiantes" exact component={Estudiante}></Route>
             <Route
               path="/estudiante/update"
               exact

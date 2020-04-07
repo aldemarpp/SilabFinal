@@ -29,12 +29,10 @@ class TrabajoController extends AbstractController
      */
     public function read()
     {
-        $todos = $this->trabajoRepository->findAll();
-        $arrayOfTodos = [];
-        foreach ($todos as $todo){
-            $arrayOfTodos[] = $todo->toArray();
-        }
-        return $this->json($arrayOfTodos);
+
+        $todos = $this->getDoctrine()->getRepository(Trabajo::class, 'default');
+        $todos = $this->trabajoRepository->Mostrar();
+        return $this->json($todos);
     }
 
     /**
@@ -48,6 +46,7 @@ class TrabajoController extends AbstractController
 
         $todo = new Trabajo();
  
+        $todo->setNombre($content->nombre);
         $todo->setRegistro($content->registro);
         $todo->setDescripcion($content->descripcion);
 
@@ -74,12 +73,13 @@ class TrabajoController extends AbstractController
     {
         $content = json_decode($request->getContent());
  
-        if ($todo->getRegistro() === $content->registro && $todo->getDescripcion() === $content->descripcion) {
+        if ($todo->setNombre() === $content->nombre && $todo->getRegistro() === $content->registro && $todo->getDescripcion() === $content->descripcion) {
             return $this->json([
                 'message' => 'No hubo cambios'
             ]);
         }
 
+        $todo->setNombre($content->nombre);
         $todo->setRegistro($content->registro);
         $todo->setDescripcion($content->descripcion);
  

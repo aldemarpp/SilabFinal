@@ -91,12 +91,12 @@ const style = {
 
 function TodoTable() {
   const context = useContext(TodoContext);
-  const [addTodoRegistro, setAddTodoRegistro] = useState("");
-  const [addTodoDescripcion, setAddTodoDescripcion] = useState("");
+  const [addTodoCodigo, setAddTodoCodigo] = useState("");
+  const [addTodoNombre, setAddTodoNombre] = useState("");
   const [addTodo, setAddTodo] = useState("");
   const [editIsShown, setEditIsShown] = useState(false);
-  const [editTodoRegistro, setEditTodoRegistro] = useState("");
-  const [editTodoDescripcion, setEditTodoDescripcion] = useState("");
+  const [editTodoCodigo, setEditTodoCodigo] = useState("");
+  const [editTodoNombre, setEditTodoNombre] = useState("");
   const [editTodo, setEditTodo] = useState("");
   const [deleteConfirmationIsShown, setDeleteConfirmationIsShown] = useState(
     false
@@ -106,22 +106,22 @@ function TodoTable() {
   const onCreateSubmit = (event) => {
     event.preventDefault();
     context.createTodo(event, {
-      nombre: addTodo,
-      registro: addTodoRegistro,
-      descripcion: addTodoDescripcion,
+      codigo: addTodoCodigo,
+      nombre: addTodoNombre,
+      programa: addTodo,
     });
+    setAddTodoCodigo("");
+    setAddTodoNombre("");
     setAddTodo("");
-    setAddTodoRegistro("");
-    setAddTodoDescripcion("");
   };
 
   const onEditSubmit = (todoId, event) => {
     event.preventDefault();
     context.updateTodo({
       id: todoId,
-      nombre: editTodo,
-      registro: editTodoRegistro,
-      descripcion: editTodoDescripcion,
+      codigo: editTodoCodigo,
+      nombre: editTodoNombre,
+      programa: editTodo,
     });
     setEditIsShown(false);
   };
@@ -129,6 +129,12 @@ function TodoTable() {
   function historyBack() {
     window.history.back();
   }
+
+  const programas = [
+    { state: "Ingeniería Civil" },
+    { state: "Ingeniería Mecánica" },
+    { state: "Ingeniería de Sistemas" },
+  ];
 
   return (
     <Fragment>
@@ -144,10 +150,10 @@ function TodoTable() {
               <Breadcrumbs aria-label="breadcrumb">
                 <Link color="inherit" style={style.link} href="">
                   <HomeIcon style={style.homeIcon} />
-                  Trabajos
+                  Estudiantes
                 </Link>
                 <Link color="inherit" style={style.link} href="/trabajo/nuevo">
-                  <Typography color="textPrimary">Nuevo Trabajo</Typography>
+                  <Typography color="textPrimary">Nuevo Estudiante</Typography>
                 </Link>
               </Breadcrumbs>
             </Grid>
@@ -158,40 +164,43 @@ function TodoTable() {
 
           <form style={style.form}>
             <Grid container spacing={2}>
-              <Grid item md={6} xs={6}>
+              <Grid item md={4} xs={6}>
+                <TextField
+                  type="text"
+                  value={addTodoCodigo}
+                  onChange={(event) => {
+                    setAddTodoCodigo(event.target.value);
+                  }}
+                  label="Código"
+                  fullWidth={true}
+                />
+              </Grid>
+              <Grid item md={4} xs={6}>
+                <TextField
+                  type="text"
+                  value={addTodoNombre}
+                  onChange={(event) => {
+                    setAddTodoNombre(event.target.value);
+                  }}
+                  label="Nombre"
+                  fullWidth={true}
+                />
+              </Grid>
+
+              <Grid item md={4} xs={6}>
                 <Autocomplete
                   id="combo-box-demo"
+                  options={programas}
                   onChange={(e, a) => {
                     setAddTodo(a !== null ? a.state : "");
                   }}
                   getOptionLabel={(option) => option.state}
                   renderInput={(params) => (
-                    <TextField {...params} label="Estudiante" />
+                    <TextField {...params} label="Programa" />
                   )}
                 />
               </Grid>
-              <Grid item md={4} xs={6}>
-                <TextField
-                  type="text"
-                  value={addTodoRegistro}
-                  onChange={(event) => {
-                    setAddTodoRegistro(event.target.value);
-                  }}
-                  label="Registrado por"
-                  fullWidth={true}
-                />
-              </Grid>
-              <Grid item md={4} xs={6}>
-                <TextField
-                  type="text"
-                  value={addTodoDescripcion}
-                  onChange={(event) => {
-                    setAddTodoDescripcion(event.target.value);
-                  }}
-                  label="Descripción"
-                  fullWidth={true}
-                />
-              </Grid>
+
               <Grid item xs={6} md={2}>
                 <Button
                   variant="contained"
@@ -224,13 +233,13 @@ function TodoTable() {
               <TableHead style={style.tableHead}>
                 <TableRow>
                   <TableCell style={style.tableCell} align="center">
-                    Estudiante
+                    Código
                   </TableCell>
                   <TableCell style={style.tableCell} align="center">
-                    Registro
+                    Nombre
                   </TableCell>
                   <TableCell style={style.tableCell} align="center">
-                    Descripción
+                    Programa
                   </TableCell>
                   <TableCell style={style.tableCell} align="center">
                     Opciones
@@ -249,7 +258,6 @@ function TodoTable() {
                   .map((todo, index) => (
                     <TableRow key={"todo " + index}>
                       {/*NAME*/}
-
                       <TableCell align="center">
                         {editIsShown === todo.id ? (
                           <form onSubmit={onEditSubmit.bind(this, todo.id)}>
@@ -257,51 +265,56 @@ function TodoTable() {
                               type="text"
                               fullWidth={true}
                               autoFocus={true}
-                              value={editTodo}
+                              value={editTodoCodigo}
                               onChange={(event) => {
-                                setEditTodo(event.target.value);
+                                setEditTodoCodigo(event.target.value);
                               }}
                             />
                           </form>
                         ) : (
-                          <Typography>{todo.nombre}</Typography>
+                          <Typography>{todo.codigo}</Typography>
                         )}
                       </TableCell>
 
+                      {/*NOMBRE*/}
                       <TableCell align="center">
                         {editIsShown === todo.id ? (
                           <form onSubmit={onEditSubmit.bind(this, todo.id)}>
                             <TextField
                               type="text"
                               fullWidth={true}
-                              autoFocus={true}
-                              value={editTodoRegistro}
-                              onChange={(event) => {
-                                setEditTodoRegistro(event.target.value);
-                              }}
-                            />
-                          </form>
-                        ) : (
-                          <Typography>{todo.registro}</Typography>
-                        )}
-                      </TableCell>
-
-                      {/*DESCRIPTION*/}
-                      <TableCell align="center">
-                        {editIsShown === todo.id ? (
-                          <form onSubmit={onEditSubmit.bind(this, todo.id)}>
-                            <TextField
-                              type="text"
-                              fullWidth={true}
-                              value={editTodoDescripcion}
+                              value={editTodoNombre}
                               onChange={(event) =>
-                                setEditTodoDescripcion(event.target.value)
+                                setEditTodoNombre(event.target.value)
                               }
                             />
                           </form>
                         ) : (
                           <Typography style={{ whiteSpace: "pre-wrap" }}>
-                            {todo.descripcion}
+                            {todo.nombre}
+                          </Typography>
+                        )}
+                      </TableCell>
+
+                      {/*PROGRAMA*/}
+                      <TableCell align="center">
+                        {editIsShown === todo.id ? (
+                          <form onSubmit={onEditSubmit.bind(this, todo.id)}>
+                            <Autocomplete
+                              fullWidth={true}
+                              options={programas}
+                              onChange={(e, a) => {
+                                setEditTodo(a !== null ? a.state : "");
+                              }}
+                              getOptionLabel={(option) => option.state}
+                              renderInput={(params) => (
+                                <TextField {...params} label="Programa" />
+                              )}
+                            />
+                          </form>
+                        ) : (
+                          <Typography style={{ whiteSpace: "pre-wrap" }}>
+                            {todo.programa}
                           </Typography>
                         )}
                       </TableCell>
@@ -327,9 +340,9 @@ function TodoTable() {
                                 color="red"
                                 onClick={() => {
                                   setEditIsShown(todo.id);
-                                  setEditTodo(todo.nombre);
-                                  setEditTodoRegistro(todo.registro);
-                                  setEditTodoDescripcion(todo.descripcion);
+                                  setEditTodoCodigo(todo.codigo);
+                                  setEditTodoNombre(todo.nombre);
+                                  setEditTodo(todo.programa);
                                 }}
                               />
                             </IconButton>

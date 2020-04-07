@@ -19,6 +19,21 @@ class TrabajoRepository extends ServiceEntityRepository
         parent::__construct($registry, Trabajo::class);
     }
 
+    public function Mostrar(){
+        try {
+            $conn = $this->getEntityManager()->getConnection();
+            $stm = $conn->prepare(" SELECT est.nombre, tra.registro, tra.descripcion 
+            FROM trabajo tra, estudiante est
+            WHERE tra.estudiante_id=est.id");
+            $stm->execute([]);
+            $res = $stm->fetchAll();
+            return $res;
+        } catch (Exception $e) {
+            return $e;
+        }
+    }
+
+
     // /**
     //  * @return Trabajo[] Returns an array of Trabajo objects
     //  */

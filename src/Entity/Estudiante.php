@@ -19,12 +19,12 @@ class Estudiante
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $codigo;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $nombre;
 
@@ -39,7 +39,7 @@ class Estudiante
     private $tipodoc;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $documento;
 
@@ -57,6 +57,37 @@ class Estudiante
     public function __construct()
     {
         $this->trabajos = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection|Trabajo[]
+     */
+    public function getTrabajos(): Collection
+    {
+        return $this->trabajos;
+    }
+
+    public function addTrabajo(Trabajo $trabajo): self
+    {
+        if (!$this->trabajos->contains($trabajo)) {
+            $this->trabajos[] = $trabajo;
+            $trabajo->setEstudiante($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrabajo(Trabajo $trabajo): self
+    {
+        if ($this->trabajos->contains($trabajo)) {
+            $this->trabajos->removeElement($trabajo);
+            // set the owning side to null (unless already changed)
+            if ($trabajo->getEstudiante() === $this) {
+                $trabajo->setEstudiante(null);
+            }
+        }
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -136,36 +167,10 @@ class Estudiante
         return $this;
     }
 
-    /**
-     * @return Collection|Trabajo[]
-     */
-    public function getTrabajos(): Collection
-    {
-        return $this->trabajos;
+    
+
+    public function toArray(){
+        return ['id' => $this->id,'codigo' => $this->codigo, 'nombre' => $this->nombre, 'programa' => $this->programa];
     }
-
-    public function addTrabajo(Trabajo $trabajo): self
-    {
-        if (!$this->trabajos->contains($trabajo)) {
-            $this->trabajos[] = $trabajo;
-            $trabajo->setEstudiante($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTrabajo(Trabajo $trabajo): self
-    {
-        if ($this->trabajos->contains($trabajo)) {
-            $this->trabajos->removeElement($trabajo);
-            // set the owning side to null (unless already changed)
-            if ($trabajo->getEstudiante() === $this) {
-                $trabajo->setEstudiante(null);
-            }
-        }
-
-        return $this;
-    }
-
     
 }

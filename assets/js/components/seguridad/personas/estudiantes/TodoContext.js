@@ -16,7 +16,7 @@ class TodoContextProvider extends Component {
   //read
   readTodo() {
     axios
-      .get("api/trabajo/read")
+      .get("api/estudiante/read")
       .then((response) => {
         this.setState({
           todos: response.data,
@@ -31,7 +31,7 @@ class TodoContextProvider extends Component {
   createTodo(event, todo) {
     event.preventDefault();
     axios
-      .post("api/trabajo/create", todo)
+      .post("api/estudiante/create", todo)
       .then((response) => {
         console.log(response.data);
         let data = [...this.state.todos];
@@ -48,16 +48,16 @@ class TodoContextProvider extends Component {
   //update
   updateTodo(data) {
     axios
-      .put("api/trabajo/update/" + data.id, data)
+      .put("api/estudiante/update/" + data.id, data)
       .then((response) => {
         let todos = [...this.state.todos];
         let todo = todos.find((todo) => {
           return todo.id === data.id;
         });
 
+        todo.codigo = response.data.todo.codigo;
         todo.nombre = response.data.todo.nombre;
-        todo.registro = response.data.todo.registro;
-        todo.descripcion = response.data.todo.descripcion;
+        todo.programa = response.data.todo.programa;
 
         this.setState({
           todos: todos,
@@ -71,7 +71,7 @@ class TodoContextProvider extends Component {
   //delete
   deleteTodo(data) {
     axios
-      .delete("api/trabajo/delete/" + data.id)
+      .delete("api/estudiante/delete/" + data.id)
       .then((response) => {
         //message
         let todos = [...this.state.todos];

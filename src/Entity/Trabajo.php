@@ -32,6 +32,7 @@ class Trabajo
      */
     private $estudiante;
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -72,8 +73,6 @@ class Trabajo
 
         return $this;
     }
-
-    public function toArray(){
-        return ['id' => $this->id,'registro' => $this->registro, 'descripcion' => $this->descripcion];
-    }
+    
+    
 }
